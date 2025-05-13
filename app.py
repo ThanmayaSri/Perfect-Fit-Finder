@@ -62,7 +62,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('index.html', size_chart=size_chart)
 
 @app.route('/get-size', methods=['POST'])
 def get_size():
@@ -72,13 +72,23 @@ def get_size():
 
     waist, hip = estimate_body_measurements(height, weight)
 
-    best_size = "Not Found"
-    for entry in size_chart[brand]:
-        if entry['waist_min'] <= waist <= entry['waist_max'] and entry['hip_min'] <= hip <= entry['hip_max']:
-            best_size = entry['size']
-            break
+    closest_size = "Not Found"
+    min_diff = float('inf')  # Start with a large number
 
-    return render_template('result.html', size=best_size)
+    for entry in size_chart[brand]:
+        waist_center = (entry['waist_min'] + entry['waist_max']) / 2
+        hip_center = (entry['hip_min'] + entry['hip_max']) / 2
+
+        waist_diff = abs(waist - waist_center)
+        hip_diff = abs(hip - hip_center)
+        total_diff = waist_diff + hip_diff
+
+        if total_diff < min_diff:
+            min_diff = total_diff
+            closest_size = entry['size']
+
+
+    return render_template('result.html', size=closest_size)
 
 if __name__ == '__main__':
     app.run(debug=True)
