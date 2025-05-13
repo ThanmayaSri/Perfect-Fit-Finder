@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FitFinder - Find Your Perfect Size</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background: linear-gradient(to right, #e3f2fd, #f8f9fa);
+      color: #333;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 60px;
+      background-color: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+    }
+    .logo span {
+      margin-left: 10px;
+    }
+    .hero {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 60px;
+      gap: 50px;
+      flex-wrap: wrap;
+    }
+    .hero img {
+      width: 400px;
+      max-width: 100%;
+      border-radius: 20px;
+    }
+    .form-container {
+      background-color: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 450px;
+    }
+    .form-container h2 {
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+    }
+    form input, form select {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    .form-container button {
+      background-color: #007bff;
+      color: white;
+      padding: 12px;
+      width: 100%;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    footer {
+      background-color: #f1f1f1;
+      text-align: center;
+      padding: 20px;
+      margin-top: 60px;
+      font-size: 0.9rem;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      👗 <span>FitFinder</span>
+    </div>
+    <div>
+      <a href="https://github.com/ThanmayaSri/Perfect-Fit-Finder" target="_blank" style="text-decoration:none; color:#007bff; font-weight:600;">GitHub</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <img src="https://cdn.pixabay.com/photo/2016/11/22/19/15/clothes-1850082_960_720.jpg" alt="Fashion Illustration" />
+    <div class="form-container">
+      <h2>Find Your Perfect Size</h2>
+      <form action="/get-size" method="POST">
+        <label for="height">Height (cm)</label>
+        <input type="number" id="height" name="height" step="0.1" required />
+
+        <label for="weight">Weight (lbs)</label>
+        <input type="number" id="weight" name="weight" step="0.1" required />
+
+        <label for="brand">Select Brand</label>
+        <select name="brand" id="brand">
+          {% for brand in size_chart %}
+            <option value="{{ brand }}">{{ brand }}</option>
+          {% endfor %}
+        </select>
+
+        <button type="submit">Find My Size</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 FitFinder | Designed by Thanmaya Sri
+  </footer>
+</body>
+</html>
