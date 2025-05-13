@@ -1,49 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fit Finder</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FitFinder</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body {
-      background: linear-gradient(to right, #fdfbfb, #ebedee);
+    * {
+      box-sizing: border-box;
       font-family: 'Poppins', sans-serif;
     }
-    .card {
-      border-radius: 20px;
-      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
-    .btn-primary {
-      border-radius: 30px;
+
+    .container {
+      display: flex;
+      flex-direction: row;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      max-width: 900px;
+      width: 90%;
+    }
+
+    .image-section {
+      flex: 1;
+      background: url('https://images.unsplash.com/photo-1562158070-7e3e3aaf3c4a') no-repeat center center/cover;
+      min-height: 400px;
+    }
+
+    .form-section {
+      flex: 1;
+      padding: 40px 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    h1 {
+      margin-top: 0;
+      color: #333;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    label {
+      margin-top: 15px;
+      font-weight: 600;
+      color: #555;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 30px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 14px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      .image-section {
+        height: 250px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container py-5">
-    <div class="text-center mb-4">
+  <div class="container">
+    <div class="image-section"></div>
+    <div class="form-section">
       <h1>👗 FitFinder</h1>
-      <p class="lead">Find your perfect clothing size for top fashion brands</p>
-    </div>
-    <div class="card p-4 mx-auto" style="max-width: 500px;">
-      <form action="/get-size" method="POST">
-        <div class="mb-3">
-          <label class="form-label">Height (inches)</label>
-          <input type="number" class="form-control" name="height" step="0.1" required>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Weight (lbs)</label>
-          <input type="number" class="form-control" name="weight" step="0.1" required>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Select Brand</label>
-          <select class="form-select" name="brand" required>
-            {% for brand in size_chart %}
-              <option value="{{ brand }}">{{ brand }}</option>
-            {% endfor %}
-          </select>
-        </div>
-        <button type="submit" class="btn btn-primary w-100">Find My Size</button>
+      <p style="margin-top: -10px;">Find your perfect clothing size from top fashion brands</p>
+      <form method="POST" action="/get-size">
+        <label for="height">Height (cm)</label>
+        <input type="number" name="height" id="height" step="0.1" required>
+
+        <label for="weight">Weight (lbs)</label>
+        <input type="number" name="weight" id="weight" step="0.1" required>
+
+        <label for="brand">Select Brand</label>
+        <select name="brand" id="brand" required>
+          {% for brand in size_chart.keys() %}
+            <option value="{{ brand }}">{{ brand }}</option>
+          {% endfor %}
+        </select>
+
+        <button type="submit">Find My Size</button>
       </form>
     </div>
   </div>
