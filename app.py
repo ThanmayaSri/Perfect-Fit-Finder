@@ -49,7 +49,6 @@ size_chart = {
     ]
 }
 
-
 # --- Estimate body measurements from height and weight ---
 def estimate_body_measurements(height, weight):
     # Basic estimation formula (can be refined later)
@@ -66,7 +65,8 @@ def home():
 
 @app.route('/get-size', methods=['POST'])
 def get_size():
-    height = float(request.form['height'])
+    height_cm = float(request.form['height'])
+    height = height_cm / 2.54
     weight = float(request.form['weight'])
     brand = request.form['brand']
 
